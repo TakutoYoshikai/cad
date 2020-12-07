@@ -2,6 +2,12 @@ import argparse
 from lina import lina
 from PIL import Image
 
+def guess_image_size(n):
+    for i in range(1, int(n / 2) + 1):
+        for j in range(1, i):
+            if i * j == n:
+                return (i, j)
+
 def img_to_binary(imgpath, outputpath):
     image = Image.open(imgpath)
     width, height = image.size
@@ -24,16 +30,16 @@ def binary_to_img(binarypath, outputpath):
     binary_file = open(binarypath, "rb")
     binary = binary_file.read()
     binary_file.close()
-    image_size = int(len(binary) / 3)
-    image = Image.new("RGB", (image_size, 1), (0, 0, 0))
+    width, height = guess_image_size(int(len(binary) / 3))
+    image = Image.new("RGB", (width, height), (0, 0, 0))
     c = 0
-    for i in range(image_size):
-        rgb = []
-        for c in range(3):
-            color = binary[i * 3 + c]
-            rgb.append(color)
-        print(rgb)
-        image.putpixel((i, 0), (rgb[0], rgb[1], rgb[2]))
+    for row in range(height):
+        for col in range(width):
+            rgb = []
+            for c in range(3):
+                color = binary[(row * width + col) * 3 + c]
+                rgb.append(color)
+            image.putpixel((col, row), (rgb[0], rgb[1], rgb[2]))
     image.save(outputpath)
     image.close()
 
