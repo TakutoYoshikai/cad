@@ -8,7 +8,7 @@ setup(
     author = 'Takuto Yoshikai',
     author_email = 'takuto.yoshikai@gmail.com',
     description = "image format changer",
-    install_requires = ['setuptools'],
+    install_requires = ['setuptools', "lina@git+https://github.com/TakutoYoshikai/lina.git"],
     packages = find_packages(),
     entry_points={
         "console_scripts": [
