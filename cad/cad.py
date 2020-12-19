@@ -26,11 +26,13 @@ def img_to_binary(imgpath, outputpath):
     output_file.close()
     image.close()
 
-def binary_to_img(binarypath, outputpath):
+def binary_to_img(binarypath, outputpath, size):
     binary_file = open(binarypath, "rb")
     binary = binary_file.read()
     binary_file.close()
     width, height = guess_image_size(int(len(binary) / 3))
+    if size is not None:
+        width, height = size
     image = Image.new("RGB", (width, height), (0, 0, 0))
     c = 0
     for row in range(height):
