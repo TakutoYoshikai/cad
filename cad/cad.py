@@ -26,7 +26,7 @@ def img_to_binary(imgpath, outputpath):
     output_file.close()
     image.close()
 
-def binary_to_img(binarypath, outputpath, size):
+def binary_to_img(binarypath, outputpath, size=None):
     binary_file = open(binarypath, "rb")
     binary = binary_file.read()
     binary_file.close()
